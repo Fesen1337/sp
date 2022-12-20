@@ -1,4 +1,3 @@
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <pthread.h>
@@ -84,9 +83,6 @@ void *server_routine()
         {
             printf("SERVER ERROR: Cant accepting client.\n");
         }
-        
-        strcpy(buffer, "server connected\n");
-        send(server, buffer, BUFFER_SIZE, 0);
         servs[last_handle] = server;
         pthread_create(&t[last_handle], NULL, &clientHandler, &servs[last_handle]);
         pthread_yield(t[last_handle]);
@@ -99,36 +95,11 @@ void* clientHandler(void* server)
     int *ser = (int*)server;
     char buf[BUFFER_SIZE];
     int n, f0, f1;//параметры необходимые для вычисления ряда
-    recv(*ser, buf, BUFFER_SIZE, 0);//получваем подтверждение от клиента что произошло подключение
-    printf("Hello, client №%d!\n", *ser);//пишем уведомление, что клиент подключился
-    while(1)
-    {
-        if(recv(*ser, buf, BUFFER_SIZE, 0) == -1)//получаем первый параметр от клиента
-            break;
-        if(buf[0] == '#')//если это терминирующий символ (#) - отключим клиента.
-        {
-            printf("Goodbye, client№%d\n",*ser);
-            break;
-        }
-            
-        n = atoi(buf);//переводим первый полученный параметр(n) в число 
-        strcpy(buf, "OK");
-        send(*ser, buf, BUFFER_SIZE, 0);//отправляем клиенту подтверждения получения
-
-        recv(*ser, buf, BUFFER_SIZE, 0);//получаем следующий параметр
-        f0 = atoi(buf);//переводим первый полученный параметр(f0) в число 
-        strcpy(buf, "OK");
-        send(*ser, buf, BUFFER_SIZE, 0);//отправляем клиенту подтверждения получения
-        
-        recv(*ser, buf, BUFFER_SIZE, 0);//получаем следующий параметр
-        f1 = atoi(buf);//переводим первый полученный параметр(f1) в число 
-        strcpy(buf, "OK");
-        send(*ser, buf, BUFFER_SIZE, 0);//отправляем клиенту подтверждения получения
-
-        printf("Client №%d: n = %d, F0 = %d, F1 = %d\n", *ser, n, f0, f1);//выведем на сервере сообщение о всех полученных параметрах
-        task_func(f0, f1, n, ser);//запустим функцию формирования ряда фибоначчи по полученным параметрам
-
-    }
+    printf("Hello, client №%d!\n", *ser);   
+    recv(*ser, buf, BUFFER_SIZE, 0);
+    printf("%s", buf);
+    strcpy(buf, "world");
+    send(*ser, buf, BUFFER_SIZE, 0);
     
 }
 
