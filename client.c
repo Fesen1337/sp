@@ -15,4 +15,9 @@ int main()
     net(buffer, 1601);
     printf("%s", buffer);
     free(buffer);
+
+    buffer = (char*) malloc(1024);
+    net(buffer, 1602);
+    printf("%s", buffer);
+    free(buffer);
 }

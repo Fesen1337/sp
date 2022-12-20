@@ -1,2 +1,3 @@
-gcc server.c -pthread -o server
+gcc server1.c -pthread -o server1
+gcc server2.c -pthread -o server2
 gcc client.c -o client
