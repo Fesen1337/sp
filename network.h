@@ -22,7 +22,7 @@ void net(char* buffer, int from_port)
 
     int client = socket(AF_INET, SOCK_STREAM, 0);//создадим сокет клиента, возвращает дескриптор сокета !!
     struct sockaddr_in server_address;//структура адреса!!
-    buffer = (char *)malloc(buffer_size * sizeof(char));//БУФФЕР!
+    //buffer = (char *)malloc(buffer_size * sizeof(char));//БУФФЕР!
     if(client < 0)//если не удалось создать сокет, выведем ошибку
     {
         printf("ERROR: Establishing socket error.\n");
@@ -53,7 +53,7 @@ void net(char* buffer, int from_port)
     strcpy(buffer, "hello");
     send(client, buffer, BUFFER_SIZE, 0);//отправляем сообщение!!
     recv(client, buffer, BUFFER_SIZE, 0);
-    printf("%s", buffer);
+    //printf("%s", buffer);
 
 }
 

@@ -25,18 +25,18 @@ int main()
         char* buffer = (char*) malloc(1024);
         net(buffer, 1601);
         
-        printf("%s", buffer);
-        write(fd[1], buffer, 1024);
+        //printf("%s", buffer);
 
         net(buffer, 1602);
-        printf("%s", buffer);
+        write(fd[1], buffer, 1024);
+        //printf("%s", buffer);
         
         free(buffer);
         
     }else{
         char* buffer = (char*) malloc(1024);
         read(fd[0], buffer, 1024);
-        printf("%s", buffer);
+        printf("msg=%s\n", buffer);
     }
     
 }
