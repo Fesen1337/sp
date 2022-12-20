@@ -75,67 +75,10 @@ int main(int argc, char* argv[])
         while(1)
         {
             //строки для параметров, именно строки, т.к. их легче проверять на адекватность введенных данных 
-            char N[100];
-            char F0[100];
-            char F1[100];
-
-            //ввод параметров
-            printf("ME: enter n:");
-            scanf("%s", N);
-            printf("ME: enter F0:");
-            scanf("%s", F0);
-                strcpy(buffer, "###");
-            printf("ME: enter F1:");
-            scanf("%s", F1);
-            if(N[0] == '#')//если был введен терминирующий символ, отправим серву терм символ и закончим работу
-            {
-                printf("Disconnect\n");
-                strcpy(buffer, "###");
-                send(client, buffer, BUFFER_SIZE, 0);
-                return 0;
-            }
-            //проверим, что введенные параметры - числа
-            if(is_num(N) == 0 || is_num(F0) == 0 || is_num(F1) == 0)
-            {
-                printf("LOCAL ERROR: Something wrong\n");
-                continue; 
-            }
-            //переведем введенные параметры в числа
-            n = atoi(N);
-            f0 = atoi(F0);
-            f1 = atoi(F1);
-
-            if(n < 0)//проверка, что чисел в ряде должно быть положительно кол-во
-            {
-                printf("LOCAL ERROR: Incorrect input\n");
-            }else{
-                itoa(n, buffer);
-                send(client, buffer, BUFFER_SIZE, 0);//отправляем серву n
-                recv(client, buffer, BUFFER_SIZE, 0);//получаем подтверждение получения
-                
-                itoa(f0, buffer);
-                send(client, buffer, BUFFER_SIZE, 0);//отправляем серву f0
-                recv(client, buffer, BUFFER_SIZE, 0);//получаем подтверждение получения
-
-                itoa(f1, buffer);
-                send(client, buffer, BUFFER_SIZE, 0);////отправляем серву f1
-                recv(client, buffer, BUFFER_SIZE, 0);//получаем подтверждение получения
-
-                recv(client, buffer, BUFFER_SIZE, 0);//получаем от серва кол-во пакетов, которое сейчас нужно будет получить
-                n = atoi(buffer);
-                strcpy(buffer, "OK");
-                send(client, buffer, BUFFER_SIZE, 0);//отправляем подтверждение получения 
-                printf("SERVER: ");
-                for(int i = 0; i < n; i++)
-                {
-                    recv(client, buffer, BUFFER_SIZE, 0);//получаем i-ое число сообщение 
-                    printf("%s ", buffer);
-                    strcpy(buffer, "OK");
-                    send(client, buffer, BUFFER_SIZE, 0);//отправляем подтверждение получения
-                }
-                printf("\n");
-            }
-            
+            strcpy(buffer, "hello");
+            send(client, buffer, BUFFER_SIZE, 0);//отправляем сообщение!!
+            recv(client, buffer, BUFFER_SIZE, 0);
+            printf("%s", buffer);
         }
     }
 
