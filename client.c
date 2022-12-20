@@ -12,7 +12,7 @@
 int main()
 {
     char* buffer = (char*) malloc(1024);
-    net(buffer);
+    net(buffer, 1601);
     printf("%s", buffer);
     free(buffer);
 }

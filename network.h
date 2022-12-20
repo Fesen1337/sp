@@ -3,7 +3,7 @@
 
 #define BUFFER_SIZE 1024 
 #define SERVER_IP "127.0.0.1"
-#define DEFAULT_PORT 1601
+int port;
 
 
 size_t buffer_size = 1024;//размер буффера в переменной а не через define, я хз зачем я сделал два разных определения длины буффера
@@ -14,9 +14,9 @@ void itoa(int n, char s[]);//перевод числа в строку
 void reverse(char s[]);//реверс строки, нужен для работы itoa
 int is_num(char *arr);//проверка является ли строка числом
 
-void net(char* buffer)
+void net(char* buffer, int from_port)
 {
-
+    port = from_port;
     int n, f0, f1;//параметры по заданию
     
 
@@ -29,7 +29,7 @@ void net(char* buffer)
         exit(0);
     }
     //заполним поля адреса
-    server_address.sin_port = htons(DEFAULT_PORT);//установим порт!!
+    server_address.sin_port = htons(port);//установим порт!!
     server_address.sin_family = AF_INET;//семейство адресов!!
     inet_pton(AF_INET, SERVER_IP, &server_address.sin_addr);//преобразует адреса ipv4 ipv6 из текстового вида в двоичный 
     printf("LOG: Client socket created\n");
