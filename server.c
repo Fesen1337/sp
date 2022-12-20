@@ -84,9 +84,6 @@ void *server_routine()
         {
             printf("SERVER ERROR: Cant accepting client.\n");
         }
-        
-        strcpy(buffer, "server connected\n");
-        send(server, buffer, BUFFER_SIZE, 0);
         servs[last_handle] = server;
         pthread_create(&t[last_handle], NULL, &clientHandler, &servs[last_handle]);
         pthread_yield(t[last_handle]);
@@ -99,17 +96,11 @@ void* clientHandler(void* server)
     int *ser = (int*)server;
     char buf[BUFFER_SIZE];
     int n, f0, f1;//параметры необходимые для вычисления ряда
-    recv(*ser, buf, BUFFER_SIZE, 0);//получваем подтверждение от клиента что произошло подключение
-    printf("Hello, client №%d!\n", *ser);
-    while(1)
-    {
-        
-        recv(*ser, buf, BUFFER_SIZE, 0);
-        printf("%s", buf);
-        strcpy(buf, "world");
-        send(*ser, buf, BUFFER_SIZE, 0);
-        //for(int i = 0; i < 1e8;i++) { }
-    }
+    printf("Hello, client №%d!\n", *ser);   
+    recv(*ser, buf, BUFFER_SIZE, 0);
+    printf("%s", buf);
+    strcpy(buf, "world");
+    send(*ser, buf, BUFFER_SIZE, 0);
     
 }
 

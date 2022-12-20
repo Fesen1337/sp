@@ -11,5 +11,8 @@
 
 int main()
 {
-    net();
+    char* buffer = (char*) malloc(1024);
+    net(buffer);
+    printf("%s", buffer);
+    free(buffer);
 }
