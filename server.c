@@ -100,7 +100,7 @@ void* clientHandler(void* server)
     char buf[BUFFER_SIZE];
     int n, f0, f1;//параметры необходимые для вычисления ряда
     recv(*ser, buf, BUFFER_SIZE, 0);//получваем подтверждение от клиента что произошло подключение
-    printf("Hello, client №%d!\n", *ser);//пишем уведомление, что клиент подключился
+    printf("Hello, client №%d!\n", *ser);
     while(1)
     {
         
